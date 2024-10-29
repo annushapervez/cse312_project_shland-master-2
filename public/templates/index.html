@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>This is our Flask site</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="icon" type="image/x-icon" href="../static/quiztime.jpg">
+    <!-- External libraries-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- External libraries-->
+</head>
+
+<body class = stretchedToMargin onload="welcome();">
+
+<div class="title">
+    <h1>Our Quiz App</h1>
+</div>
+
+<p id="paragraph">
+    Welcome {{ name }} !
+</p>
+
+<!--<img src="../static/apple.jpg" alt="It's an apple" class="my_image"/>-->
+<hr/>
+
+<div class="header">
+    <div>
+        <img src="../static/quiztime.jpg" alt="It's an eagle" class="my_image"/></div>
+    <div>
+        <p id="paragraph">
+            &nbsp;Welcome to the Shland Quiz App 😎. Only cool people allowed &nbsp;
+        </p>
+        <form action="/grades" method="get">
+            <button class="grade-btn" type="submit">Go To Gradebook</button>
+        </form>
+    </div>
+    <div>
+        <img src="../static/quiztime.jpg" alt="It's an eagle" class="my_image"/>
+    </div>
+</div>
+
+<div class="contents">
+    <div class="user-list">
+        Register:
+        <form action="/register" method="post" enctype="application/x-www-form-urlencoded">
+            <label>Username:
+                <input id="reg-form-username" type="text" name="username_reg"/>
+            </label>
+            <br/>
+            <label>Password:&nbsp;
+                <input id="reg-form-pass" type="password" name="password_reg">
+            </label>
+            <input type="submit" value="Post">
+        </form>
+        <br/>
+        Login:
+        <form action="/login" method="post" enctype="application/x-www-form-urlencoded">
+            <label>Username:
+                <input id="login-form-username" type="text" name="username_login"/>
+            </label>
+            <br/>
+            <label>Password:&nbsp;
+                <input id="login-form-pass" type="password" name="password_login">
+            </label>
+            <input type="submit" value="Post">
+        </form>
+        <br/>
+        Create Post:
+        <form action="/create-post" method="post">
+            <label for="post-title">Title:</label>
+            <input id="post-title" type="text" name="title" required>
+            <br>
+            <label for="post-description">Description:</label>
+            <textarea id="post-description" name="description" required></textarea>
+            <br>
+            <input type="submit" value="Create Post">
+        </form>
+        <br/><!--
+        Create Quiz Question:
+        <form action="/create-quiz" method="post" enctype="multipart/form-data">
+            <label for="quiz-title">Title:</label>
+            <input id="quiz-title" type="text" name="quiz-title" required>
+
+            <div class="question-label">
+                <label for="description">Description:</label>
+                <input id="description" type="text" name="description" required>
+            </div>
+
+            <div class="answer-container">
+                <label for="answer-1">Answer 1:</label>
+                <input type="radio" name="correct_answer" value="1" required>
+                <input id="answer-1" type="text" name="answers[]" required>
+            </div>
+
+            <div class="answer-container">
+                <label for="answer-2">Answer 2:</label>
+                <input type="radio" name="correct_answer" value="2">
+                <input id="answer-2" type="text" name="answers[]" required>
+            </div>
+
+            <div class="answer-container">
+                <label for="answer-3">Answer 3:</label>
+                <input type="radio" name="correct_answer" value="3">
+                <input id="answer-3" type="text" name="answers[]" required>
+            </div>
+
+            <div class="answer-container">
+                <label for="answer-4">Answer 4:</label>
+                <input type="radio" name="correct_answer" value="4">
+                <input id="answer-4" type="text" name="answers[]" required>
+            </div>
+
+            <label for="image-upload">Upload Image:</label>
+            <input type="file" id="image-upload" name="quizImage" accept="image/jpeg, image/png, image/gif">
+            <input type="submit" value="Create Question">
+        </form>-->
+        <br/>
+    </div>
+    <div class="posts">
+        <h2>Posts:</h2>
+        <div class="listWrapper">
+        <ul id="post-list2">
+            <!-- unordered list -->
+            <!-- <li>Task 1</li> -->
+        </ul>
+        </div>
+    </div>
+    <div class="posts">
+
+        <form action="/obj2" method="get">
+            <input type="submit" value="Go to Quiz lobby">
+        </form>
+
+        <!--
+        <div class="quizlink" id="quizlink"></div>
+        <button id="sendBtn">
+        <input type="text" id="message" placeholder="Message" required>
+        <button id="sendBtn">send</button>
+        -->
+
+
+        <!--<h2>Quiz Questions:</h2>
+        <div class="listWrapper">
+        <ul id="quiz-list">-->
+            <!-- unordered list -->
+            <!-- <li>Task 1</li> -->
+        </ul>
+        </div>
+    </div>
+</div>
+<script src="functions.js"></script>
+
+<!-- External libraries-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- External libraries-->
+
+<!-- Websocket Scripts -->
+<script type="text/javascript">
+
+    var socketio = io();
+
+    //const posts = document.getElementById("post-list")
+    //const questions = document.getElementById("quiz-list")
+
+    //const createQuestion = {}
+
+    /*
+    $(document).ready(function(){
+        var socket = io.connect("http://localhost:8080")
+        socket.on('connect', function() {
+            socket.send("User connected!");
+        });
+        socket.on('message', function(data){
+            $('#messages').append($('<p>').text(data));
+        });
+        $('#sendBtn').on('click',function(){
+            socket.send($('#username').val() + ': ' + $('#message').val());
+            $('#message').val('')
+        });
+    });
+     */
+
+</script>
+
+
+<!--
+<script>
+    const socket = io.connect("http://127.0/0/1:8080");
+
+    socket.on('connect', function(){
+        socket.emitAll('join_room',{
+            username: "{}",
+            room: "Quiz app"
+        })
+    })
+
+    socket.on('join_room_announcement', function(data){
+        console.log(data);
+        const newNode = document.createElement('div');
+        newNode.innerHTML = `${data.username} has joined the room`;
+        document.getElementById('users').appendChild(newNode)
+    })
+</script>
+-->
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>shland gradebook - P3 Obj 3</title>
+    <link rel="stylesheet" type="text/css" href="grades.css"/>
+</head>
+<body>
+<div class="header">
+    <h1>{{ user }}'s Gradebook:</h1>
+</div>
+<div class="contents">
+    <div class="grade-container">
+        <h2>Questions you've created:</h2>
+
+        {% for question in created_questions.keys() %}
+        <table class="grades-table">
+            <caption>Question Title: {{ question[0] }}</caption>
+            <caption>Question Description: {{ question[1] }}</caption>
+            <tr>
+                <th>User</th>
+                <th>Grade</th>
+            </tr>
+            {% for answer_data in created_questions[question] %}
+            <tr>
+                {% for cell in answer_data %}
+                <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        <hr>
+        {% endfor %}
+
+    </div>
+    <div class="grade-container">
+        <h2>Your own grades:</h2>
+        <table class="grades-table">
+            <tr>
+                <th>Question Title</th>
+                <th>Description</th>
+                <th>Your Grade</th>
+            </tr>
+            {% for answer_data in own_answers %}
+            <tr>
+                {% for cell in answer_data %}
+                <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+</body>
+</html>

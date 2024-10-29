@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Chat App</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="room.js"></script>
+        <!-- External libraries-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <!-- External libraries-->
+    </head>
+    <body onload="welcome();">
+    <body>
+    <div class='members-box'>
+        <h2>Quiz Code: {{code}}</h2>
+        <div class='members' id='members'></div>
+        <div class='start-game'>
+            <form action="/quiz" method="get">
+                <input type="submit" value="Start Game">
+            </form>
+{#            <button class='game-start-btn' onClick='startGame()'>Start Game</button>#}
+        </div>
+    </div>
+
+
+    <div class='quiz-questions'>
+        <h2>Quiz Questions:</h2>
+        <div class="listWrapper">
+        <ul id="quiz-list">
+            <!-- unordered list -->
+            <!-- <li>Task 1</li> -->
+        </ul>
+        </div>
+    </div>
+    <div class='create-questions'>
+        <br/>
+        Create Quiz Question:
+        <form action="/create-quiz" method="post" enctype="multipart/form-data">
+            <label for="quiz-title">Title:</label>
+            <input id="quiz-title" type="text" name="quiz-title" required>
+
+            <div class="question-label">
+                <label for="description">Description:</label>
+                <input id="description" type="text" name="description" required>
+            </div>
+
+            <div class="answer-container">
+                <label for="answer-1">Answer 1:</label>
+                <input type="radio" name="correct_answer" value="1" required>
+                <input id="answer-1" type="text" name="answers[]" required>
+            </div>
+
+            <div class="answer-container">
+                <label for="answer-2">Answer 2:</label>
+                <input type="radio" name="correct_answer" value="2">
+                <input id="answer-2" type="text" name="answers[]" required>
+            </div>
+
+            <div class="answer-container">
+                <label for="answer-3">Answer 3:</label>
+                <input type="radio" name="correct_answer" value="3">
+                <input id="answer-3" type="text" name="answers[]" required>
+            </div>
+
+            <div class="answer-container">
+                <label for="answer-4">Answer 4:</label>
+                <input type="radio" name="correct_answer" value="4">
+                <input id="answer-4" type="text" name="answers[]" required>
+            </div>
+
+            <label for="image-upload">Upload Image:</label>
+            <input type="file" id="image-upload" name="quizImage" accept="image/jpeg, image/png, image/gif">
+            <input type="submit" value="Create Question">
+        </form>
+        <br/>
+        <!-- Websocket Scripts -->
+<script type="text/javascript">
+
+    var socketio = io();
+
+    //const posts = document.getElementById("post-list")
+    //const questions = document.getElementById("quiz-list")
+
+    //const createQuestion = {}
+
+    /*
+    $(document).ready(function(){
+        var socket = io.connect("http://localhost:8080")
+        socket.on('connect', function() {
+            socket.send("User connected!");
+        });
+        socket.on('message', function(data){
+            $('#messages').append($('<p>').text(data));
+        });
+        $('#sendBtn').on('click',function(){
+            socket.send($('#username').val() + ': ' + $('#message').val());
+            $('#message').val('')
+        });
+    });
+     */
+
+</script>
+        </body>
+    </div>
+    <canvas id='canvas' style="display:none"></canvas>
+    </body>
+
+    <script type='text/javascript'>
+        var socketio = io();
+        const members = document.getElementById('members');
+
+        const showJoin = (name, msg) => {
+            const content = `
+            <div class = 'joins'>
+                <span>
+                    <strong>${name}</strong>: ${msg}
+                </span>
+            </div>    
+            `;
+            members.innerHTML += content;
+        };
+
+        // shows joins
+        socketio.on('message', (data) => {
+
+            showJoin(data.name, data.message)
+        });
+
+        // const joinGame = () => {
+        //     console.log('new member joined');
+        // };
+    </script>
+</html>

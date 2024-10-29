@@ -1,0 +1,166 @@
+
+body {
+    background-color: #4b1b75;
+    color: white;
+}
+
+.my_image {
+    width: 175px;
+}
+
+p {
+    font-size: 20px;
+    font-style: italic;
+    text-align: center;
+}
+
+img.post {
+    width: 120px;
+}
+
+.title{
+    height: 5%;
+    text-align: center;
+}
+
+.header{
+    display: flex;
+    background-color: #ffffff;
+    color: black;
+    height: 25%;
+    align-items: center;
+    justify-content: center;
+}
+
+.content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.join{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.contents{
+    display: flex;
+    justify-content: space-around;
+    height: 70%
+}
+.create-btn{
+    width: 100%;
+}
+.user-list, .posts{
+    width: 30%;
+    background-color: #e1ca49;
+    padding: 15px;
+}
+.header > div{
+    padding: 20px 0;
+}
+
+.stretchedToMargin {
+  display: block;
+  position:absolute;
+  height:auto;
+  bottom:0;
+  top:0;
+  left:0;
+  right:0;
+}
+
+ul li{
+    list-style: none;
+    font-size: 17px;
+    padding: 12px 8px 12px 50px;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+}
+
+ul li::before{
+    position: absolute;
+}
+
+.listWrapper {
+    max-height:385px;
+    overflow-y:auto;
+}
+
+.quiz-question-form {
+    background-color: #e1ca49;
+    padding: 20px;
+}
+
+.quiz-question-form label {
+    display: block;
+    margin-top: 10px;
+}
+
+.quiz-question-form .answer-container {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.quiz-question-form .answer-container label {
+    width: 100px;
+    margin-right: 10px;
+}
+
+.quiz-question-form .answer-container input[type="text"] {
+    flex: 1;
+}
+
+.question-label {
+    clear: both;
+}
+
+.question-image {
+    max-width: 170px;
+    max-height: 170px;
+}
+
+.members-box {
+    border-color: black;
+    border-radius: 10px;
+    border-width: 5px;
+    border-style: solid;
+    background-color: grey;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+
+}
+
+.members {
+    overflow-y: scroll;
+    flex: 1;
+    height: 100%;
+}
+
+.inputs {
+    padding: 10px;
+    display: flex;
+}
+
+h2 {
+    text-align: center;
+}
+
+.screen-name-btn {
+    width: 90px;
+    height: 30px;
+}
+
+.grade-btn {
+    width: 200px;
+    height: 30px;
+    background-color: #e1ca49;
+    font-family: monospace;
+    border-radius: 50px;
+}
